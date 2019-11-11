@@ -1,0 +1,33 @@
+{
+  "name": "ws2812-usb-controler",
+  "version": "0.0.1",
+  "description": "A project to connect your Neopixels/WS2812(b) to your PC via an Arduino Pro Micro",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Delivator/ws2812-usb-controler.git"
+  },
+  "keywords": [
+    "neopixel",
+    "ws2812",
+    "arduino",
+    "usb"
+  ],
+  "author": "Delivator",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Delivator/ws2812-usb-controler/issues"
+  },
+  "homepage": "https://github.com/Delivator/ws2812-usb-controler#readme",
+  "dependencies": {
+    "inquirer": "^7.0.0",
+    "serialport": "^8.0.5"
+  }
+}
