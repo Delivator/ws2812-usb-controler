@@ -28,6 +28,7 @@
   "homepage": "https://github.com/Delivator/ws2812-usb-controler#readme",
   "dependencies": {
     "inquirer": "^7.0.0",
+    "robotjs": "git+https://github.com/octalmage/robotjs.git#master",
     "serialport": "^8.0.5"
   }
 }
