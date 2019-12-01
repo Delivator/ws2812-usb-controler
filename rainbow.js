@@ -116,41 +116,41 @@ port.on("open", async () => {
       for (let i = 0; i < LED_COUNT; i++) {
         setLed((i + LED_COUNT - 1) % LED_COUNT, [0, 0, 0])
         setLed(i % LED_COUNT, [255, 0, 0])
-        await timer(100)
+        await timer(250)
       }
       for (let i = 0; i < LED_COUNT; i++) {
         setLed(i % LED_COUNT, [255, 0, 0])
-        await timer(100)
+        await timer(250)
       }
       await setAll([0, 0, 0], 100)
       // GREEN
       for (let i = 0; i < LED_COUNT; i++) {
         setLed((i + LED_COUNT - 1) % LED_COUNT, [0, 0, 0])
         setLed(i % LED_COUNT, [0, 255, 0])
-        await timer(100)
+        await timer(250)
       }
       for (let i = 0; i < LED_COUNT; i++) {
         setLed(i % LED_COUNT, [0, 255, 0])
-        await timer(100)
+        await timer(250)
       }
-      await setAll([0, 0, 0], 100)
+      await setAll([0, 0, 0], 250)
       // BLUE
       for (let i = 0; i < LED_COUNT; i++) {
         setLed((i + LED_COUNT - 1) % LED_COUNT, [0, 0, 0])
         setLed(i % LED_COUNT, [0, 0, 255])
-        await timer(100)
+        await timer(250)
       }
       for (let i = 0; i < LED_COUNT; i++) {
         setLed(i % LED_COUNT, [0, 0, 255])
-        await timer(100)
+        await timer(250)
       }
       // Random
       for (let i = 0; i < LED_COUNT * 5; i++) {
         setLed(i % LED_COUNT, [randInt(), randInt(), randInt()])
-        await timer(100)
+        await timer(250)
       }
       // all leds off no delay
-      await setAll([0, 0, 0], 100)
+      await setAll([0, 0, 0], 250)
     } else {
       // Sleep 100ms to don't waste resources if no controller is connected
       await timer(100)
