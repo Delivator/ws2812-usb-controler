@@ -60,10 +60,10 @@ function hexToRGB(h) {
     b = "0x" + h[3] + h[3];
 
   // 6 digits
-  } else if (h.length == 7) {
-    r = "0x" + h[1] + h[2];
-    g = "0x" + h[3] + h[4];
-    b = "0x" + h[5] + h[6];
+  } else if (h.length == 6) {
+    r = "0x" + h[0] + h[1];
+    g = "0x" + h[2] + h[3];
+    b = "0x" + h[4] + h[5];
   }
   
   return [parseInt(r), parseInt(g), parseInt(b)];
@@ -127,29 +127,34 @@ port.on("open", async () => {
   console.log("Connected to serial port", port.path)
   console.log("Checking if device is compatible")
   port.write("whoareyou\n")
-
-  let img = robot.screen.capture(853, 480, 853, 480).image
-  let avg = [0, 0, 0]
+  
+  let size = robot.getScreenSize();
 
   // Animation loop
   while (true) {
     if (isReady) {
-      img = robot.screen.capture(853*2, 480*2, 853, 480).image
+      let cords = [
+        [1500, 1050],
+        [1875, 975],
+        [2125, 825],
+        [2125, 550],
+        [1875, 425],
+        [1500, 350],
+        [1025, 350],
+        [775, 425],
+        [525, 525],
+        [525, 825],
+        [775, 1050],
+        [1025, 1050]
+      ]
 
-      avg = [0, 0, 0]
-      let i = 0
-      for (i = 0; i < img.length / 4; i++) {
-        avg[0] += img[i*4]
-        avg[1] += img[i*4+1]
-        avg[2] += img[i*4+2]
+      for (let i = 0; i < LED_COUNT; i++) {
+        let color = robot.getPixelColor(cords[i][0], cords[i][1])
+        await setLed(i, hexToRGB(color))
       }
 
-      avg[0] = Math.floor(avg[0] / i + 1)
-      avg[1] = Math.floor(avg[1] / i + 1)
-      avg[2] = Math.floor(avg[2] / i + 1)
 
-      await setAll(avg, 0)
-      await timer(50)
+      await timer(10)
     } else {
       // Sleep 100ms to don't waste resources if no controller is connected
       await timer(100)
