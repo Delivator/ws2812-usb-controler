@@ -129,32 +129,39 @@ port.on("open", async () => {
   port.write("whoareyou\n")
   
   let size = robot.getScreenSize();
+  let mid = { x: size.width / 2, y: size.height / 2}
+  let cords = [
+    [mid.x-100, mid.y-100],
+    [mid.x, mid.y-100],
+    [mid.x+100, mid.y-100],
+    [mid.x-100, mid.y],
+    [mid.x, mid.y],
+    [mid.x+100, mid.y],
+    [mid.x-100, mid.y+100],
+    [mid.x, mid.y+100],
+    [mid.x+100, mid.y+100]
+  ]
 
   // Animation loop
   while (true) {
     if (isReady) {
-      let cords = [
-        [1500, 1050],
-        [1875, 975],
-        [2125, 825],
-        [2125, 550],
-        [1875, 425],
-        [1500, 350],
-        [1025, 350],
-        [775, 425],
-        [525, 525],
-        [525, 825],
-        [775, 1050],
-        [1025, 1050]
-      ]
 
-      for (let i = 0; i < LED_COUNT; i++) {
-        let color = robot.getPixelColor(cords[i][0], cords[i][1])
-        await setLed(i, hexToRGB(color))
+      let color = [0, 0, 0]
+
+      for (let i = 0; i < cords.length; i++) {
+        let c = hexToRGB(robot.getPixelColor(cords[i][0], cords[i][1]))
+        color[0] += c[0]
+        color[1] += c[1]
+        color[2] += c[2]
       }
 
+      color[0] = Math.floor(color[0] / cords.length)
+      color[1] = Math.floor(color[1] / cords.length)
+      color[2] = Math.floor(color[2] / cords.length)
 
-      await timer(10)
+      setAll(color, 0)
+
+      await timer(4)
     } else {
       // Sleep 100ms to don't waste resources if no controller is connected
       await timer(100)
